@@ -7,8 +7,8 @@ namespace TdLib.Samples.GetChats
 {
     class Program
     {
-        private static readonly int ApiId = 69;
-        private static readonly string ApiHash = "";
+        private static readonly int ApiId = 1962340;
+        private static readonly string ApiHash = "658bcc68acc90d5ba4ed5ca5d7b83ed3";
         private static readonly string PhoneNumber = ""; // must contain prefix
 
         private static readonly ManualResetEventSlim ResetEvent = new ManualResetEventSlim();
