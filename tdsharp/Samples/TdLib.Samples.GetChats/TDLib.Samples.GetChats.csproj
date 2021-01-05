@@ -9,4 +9,13 @@
     <ProjectReference Include="..\..\TDLib\TDLib.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="TDLib">
+      <HintPath>..\..\TDLib\bin\Debug\netstandard2.0\TDLib.dll</HintPath>
+    </Reference>
+    <Reference Include="TDLib.Api">
+      <HintPath>..\..\TDLib\bin\Debug\netstandard2.0\TDLib.Api.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

@@ -9,7 +9,7 @@ namespace TdLib.Samples.GetChats
     {
         private static readonly int ApiId = 1962340;
         private static readonly string ApiHash = "658bcc68acc90d5ba4ed5ca5d7b83ed3";
-        private static readonly string PhoneNumber = ""; // must contain prefix
+        private static readonly string PhoneNumber = "89525639039"; // must contain prefix
 
         private static readonly ManualResetEventSlim ResetEvent = new ManualResetEventSlim();
         private static bool _authNeeded;
