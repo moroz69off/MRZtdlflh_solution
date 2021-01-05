@@ -7,7 +7,7 @@ namespace TdLib.Samples.GetChats
 {
     class Program
     {
-        private static readonly int ApiId = 0;
+        private static readonly int ApiId = 69;
         private static readonly string ApiHash = "";
         private static readonly string PhoneNumber = ""; // must contain prefix
 
@@ -104,6 +104,7 @@ namespace TdLib.Samples.GetChats
                     yield return chat;
                 }
             }
+            Console.ReadLine();
         }
     }
 }
