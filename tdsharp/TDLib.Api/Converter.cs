@@ -44,7 +44,7 @@ namespace TdLib
                 var typeProp = jObject["@type"];
                 if (typeProp != null)
                 {
-                    var typeName = (string) typeProp;
+                    var typeName = (string)typeProp;
                     if (typeName != null && _mapper.TryGetValue(typeName, out var type))
                     {
                         return jObject.ToObject(type);

@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TDLib.Api", "tdsharp\TDLib.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TDLib", "tdsharp\TDLib\TDLib.csproj", "{E79CC671-3083-4DFD-B020-C28A4CABF41F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TDLib.Samples.GetChats", "tdsharp\Samples\TdLib.Samples.GetChats\TDLib.Samples.GetChats.csproj", "{81851F0A-6F56-451B-B3E5-04723CA79267}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +33,6 @@ Global
 		{E79CC671-3083-4DFD-B020-C28A4CABF41F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E79CC671-3083-4DFD-B020-C28A4CABF41F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E79CC671-3083-4DFD-B020-C28A4CABF41F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{81851F0A-6F56-451B-B3E5-04723CA79267}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{81851F0A-6F56-451B-B3E5-04723CA79267}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{81851F0A-6F56-451B-B3E5-04723CA79267}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{81851F0A-6F56-451B-B3E5-04723CA79267}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

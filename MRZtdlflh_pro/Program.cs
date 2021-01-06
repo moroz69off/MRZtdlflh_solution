@@ -1,5 +1,11 @@
 ﻿using System;
 
+using TDLib;
+using TDLib.Bindings;
+
+using TdLib;
+using TdLib.Bindings;
+
 
 namespace MRZtdlflh_pro
 {
@@ -7,9 +13,9 @@ namespace MRZtdlflh_pro
     {
         static void Main(string[] args)
         {
-
+            TdJsonClient tdJsonClient = new TdJsonClient();
             //Console.WriteLine("Hello World!");
-            Console.ReadLine();
+            //Console.ReadLine();
         }
     }
 }

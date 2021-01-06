@@ -6,6 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="tdlib.native" Version="1.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\TDLib.Api\TDLib.Api.csproj" />
     <ProjectReference Include="..\..\TDLib\TDLib.csproj" />
   </ItemGroup>
 

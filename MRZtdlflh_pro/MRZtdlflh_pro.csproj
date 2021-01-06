@@ -5,4 +5,18 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\tdsharp\TDLib.Api\TDLib.Api.csproj" />
+    <ProjectReference Include="..\tdsharp\TDLib\TDLib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="TDLib">
+      <HintPath>..\tdsharp\TDLib\bin\Debug\netstandard2.0\TDLib.dll</HintPath>
+    </Reference>
+    <Reference Include="TDLib.Api">
+      <HintPath>..\tdsharp\TDLib\bin\Debug\netstandard2.0\TDLib.Api.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
