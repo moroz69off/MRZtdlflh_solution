@@ -6,8 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\tdsharp\TDLib.Api\TDLib.Api.csproj" />
-    <ProjectReference Include="..\tdsharp\TDLib\TDLib.csproj" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
   </ItemGroup>
 
   <ItemGroup>
