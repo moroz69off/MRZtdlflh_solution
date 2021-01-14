@@ -18,8 +18,11 @@ namespace MRZtdlflh_pro
         {
             try
             {
+                SetTdlibParameters setTdlibParameters = new SetTdlibParameters();
+                //setTdlibParameters.Parameters.UseTestDc = true;
                 Task<TdClient> v = TaskAsync();
-                v.Dispose();
+                //v.ConfigureAwait(true);
+                var result = v.Result;
             }
             catch (Exception e)
             {
@@ -31,6 +34,9 @@ namespace MRZtdlflh_pro
         static async Task<TdClient> TaskAsync()
         {
             TdClient tdClient = new TdClient();
+            AccountTtl accountTtl = new AccountTtl();
+            
+            await tdClient.CheckChatUsernameAsync();
             var GetMeClient = await TdApi.GetMeAsync(tdClient);
             return tdClient;
         }
