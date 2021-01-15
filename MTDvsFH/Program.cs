@@ -15,6 +15,8 @@ namespace MTDvsFH
 
         static void Main(string[] args)
         {
+            Console.Title = "moroz69off tg-client";
+
             Console.WriteLine("Type the you phone number");
             //phoneNumber = Console.ReadLine();
 

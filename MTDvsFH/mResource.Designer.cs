@@ -77,5 +77,15 @@ namespace MTDvsFH {
                 return ResourceManager.GetString("apiId", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] favicon {
+            get {
+                object obj = ResourceManager.GetObject("favicon", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }
