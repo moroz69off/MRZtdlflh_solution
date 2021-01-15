@@ -33,7 +33,6 @@ namespace MTDvsFH
             client.CheckDatabaseEncryptionKeyAsync();
             TaskStatus authorizationStateStatus = client.GetAuthorizationStateAsync().Status;
             Console.WriteLine("===authorization state status===:\n" + authorizationStateStatus + "\n===ЖЖЖЖЖЖЖЖЖЖЖЖЖЖ===\n");
-            client.GetAuthorizationStateAsync().Start();
             Console.ReadLine();
         }
     }
