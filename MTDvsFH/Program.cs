@@ -37,13 +37,7 @@ namespace MTDvsFH
             client.CheckDatabaseEncryptionKeyAsync();
 
             Task<TdA.Chat> mChat = client.GetChatAsync(464756882);
-            mChat.ConfigureAwait(false);
 
-            TaskStatus authorizationStateStatus = client.GetAuthorizationStateAsync().Status;
-
-
-
-            Console.WriteLine("===authorization state status===:\n" + authorizationStateStatus + "\n===ЖЖЖЖЖЖЖЖЖЖЖЖЖЖ===\n");
             Console.ReadLine();
         }
     }
