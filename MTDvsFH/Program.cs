@@ -28,6 +28,7 @@ namespace MTDvsFH
                 SystemLanguageCode = "ru-RU",
                 DeviceModel = "desktop",
                 SystemVersion = "Windows 10 Pro",
+                UseFileDatabase = true,
                 UseTestDc = true
             };
 
@@ -35,9 +36,14 @@ namespace MTDvsFH
             client.SetTdlibParametersAsync(parameters);
             client.CheckDatabaseEncryptionKeyAsync();
 
-            TaskStatus authorizationStateStatus = client.GetAuthorizationStateAsync().Status;
-            Console.WriteLine("===authorization state status===:\n" + authorizationStateStatus + "\n===ЖЖЖЖЖЖЖЖЖЖЖЖЖЖ===\n");
+            Task<TdA.Chat> mChat = client.GetChatAsync(464756882);
+            mChat.ConfigureAwait(false);
 
+            TaskStatus authorizationStateStatus = client.GetAuthorizationStateAsync().Status;
+
+
+
+            Console.WriteLine("===authorization state status===:\n" + authorizationStateStatus + "\n===ЖЖЖЖЖЖЖЖЖЖЖЖЖЖ===\n");
             Console.ReadLine();
         }
     }
