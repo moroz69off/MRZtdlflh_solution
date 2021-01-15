@@ -25,14 +25,17 @@ namespace MTDvsFH
                 ApplicationVersion = "1.0",
                 SystemLanguageCode = "ru-RU",
                 DeviceModel = "desktop",
-                SystemVersion = "Windows 10 Pro"
+                SystemVersion = "Windows 10 Pro",
+                UseTestDc = true
             };
 
             client = new TdClient();
             client.SetTdlibParametersAsync(parameters);
             client.CheckDatabaseEncryptionKeyAsync();
+
             TaskStatus authorizationStateStatus = client.GetAuthorizationStateAsync().Status;
             Console.WriteLine("===authorization state status===:\n" + authorizationStateStatus + "\n===ЖЖЖЖЖЖЖЖЖЖЖЖЖЖ===\n");
+
             Console.ReadLine();
         }
     }
