@@ -1,8 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>ddaf92e0-26fe-459a-af82-28a8b20147dd</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,6 +18,21 @@
     <Reference Include="TDLib.Api">
       <HintPath>..\..\..\..\..\.nuget\packages\tdlib.api\1.6.0\lib\netstandard2.0\TDLib.Api.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="mResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>mResource.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="mResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>mResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>
