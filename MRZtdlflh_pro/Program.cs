@@ -3,6 +3,7 @@ using TdLib;
 using TdLib.Bindings;
 using System.Threading.Tasks;
 
+
 namespace MRZtdlflh_pro
 {
     class Program
@@ -13,8 +14,9 @@ namespace MRZtdlflh_pro
         {
             try
             {
-                TdClient MTDCli = new TdLib.TdClient();
-                var MTDch = TdApi.SendBotStartMessageAsync(MTDCli);
+                TdClient MTDClient = new TdLib.TdClient();
+                Task<TdApi.AuthorizationState> autorisationState = MTDClient.GetAuthorizationStateAsync();
+                Console.WriteLine("autorisation state: "+autorisationState);
             }
             catch (Exception e)
             {
