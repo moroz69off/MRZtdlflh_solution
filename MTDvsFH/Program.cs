@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Threading.Tasks;
 using TdLib;
-using TdA = TdLib.TdApi;
+using TdAPI = TdLib.TdApi;
 
 namespace MTDvsFH
 {
     class Program
     {
         private static string phoneNumber;
-        static TdA.Ok Tok;
-        private static TdA.Client client;
-        static TdA.InlineQueryResult GetInlineQueryResult = null;
-        private static TdA.TdlibParameters parameters;
+        static TdAPI.Ok Tok;
+        private static TdAPI.Client client;
+        static TdAPI.InlineQueryResult GetInlineQueryResult = null;
+        private static TdAPI.TdlibParameters parameters;
 
         static void Main(string[] args)
         {
@@ -20,7 +20,7 @@ namespace MTDvsFH
             Console.WriteLine("Type the you phone number");
             //phoneNumber = Console.ReadLine();
 
-            parameters = new TdA.TdlibParameters()
+            parameters = new TdAPI.TdlibParameters()
             {
                 ApiId = int.Parse(mResource.apiId),
                 ApiHash = mResource.apiHash,
@@ -36,7 +36,7 @@ namespace MTDvsFH
             client.SetTdlibParametersAsync(parameters);
             client.CheckDatabaseEncryptionKeyAsync();
 
-            Task<TdA.Chat> mChat = client.GetChatAsync(464756882);
+            Task<TdAPI.Chat> mChat = client.GetChatAsync(464756882);
 
             Console.ReadLine();
         }
