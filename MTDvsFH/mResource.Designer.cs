@@ -61,7 +61,7 @@ namespace MTDvsFH {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на 658bcc68acc90d5ba4ed5ca5d7b83ed3.
+        ///   Ищет локализованную строку, похожую на .
         /// </summary>
         internal static string apiHash {
             get {
@@ -70,7 +70,7 @@ namespace MTDvsFH {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на 1962340.
+        ///   Ищет локализованную строку, похожую на .
         /// </summary>
         internal static string apiId {
             get {
@@ -85,6 +85,15 @@ namespace MTDvsFH {
             get {
                 object obj = ResourceManager.GetObject("favicon", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на .
+        /// </summary>
+        internal static string token {
+            get {
+                return ResourceManager.GetString("token", resourceCulture);
             }
         }
     }

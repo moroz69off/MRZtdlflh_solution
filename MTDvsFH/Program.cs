@@ -39,13 +39,7 @@ namespace MTDvsFH
 
             client = new TdLib.TdClient();
             client.SetTdlibParametersAsync(parameters);
-            //client.CheckDatabaseEncryptionKeyAsync(encryptionKey);
-
-            //client = new TdClient();
-            //client.SetTdlibParametersAsync(parameters);
-            //client.CheckDatabaseEncryptionKeyAsync();
-
-            //Task<TdAPI.Chat> mChat = client.GetChatAsync(464756882);
+            client.CheckAuthenticationBotTokenAsync(mResource.token);
 
             client.CloseAsync();
 
