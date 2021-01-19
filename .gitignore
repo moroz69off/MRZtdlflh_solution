@@ -5,6 +5,7 @@
 
 # User security
 *.resx
+*.[Rr]esource.[Dd]esigner.cs
 
 # User-specific files
 *.rsuser

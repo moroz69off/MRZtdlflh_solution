@@ -4,7 +4,7 @@ using TdLib;
 using TdAPI = TdLib.TdApi;
 using JsonSerial = Newtonsoft.Json.Serialization;
 using System.Text;
-using RES = MTDvsFH.Resources;
+
 
 namespace MTDvsFH
 {
@@ -26,10 +26,10 @@ namespace MTDvsFH
 
             parameters = new TdAPI.TdlibParameters()
             {
-                ApiId = int.Parse(RES.mResource.appId),
+                ApiId = int.Parse(""),
                 UseChatInfoDatabase=true,
                 UseMessageDatabase=true,
-                ApiHash = RES.mResource.apiHash,
+                ApiHash = "",
                 ApplicationVersion = "1.0",
                 SystemLanguageCode = "ru-RU",
                 DeviceModel = "desktop",
