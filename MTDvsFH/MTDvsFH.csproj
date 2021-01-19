@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="mResource.Designer.cs">
+    <Compile Update="Resources\mResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>mResource.resx</DependentUpon>
@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="mResource.resx">
+    <EmbeddedResource Update="Resources\mResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>mResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
