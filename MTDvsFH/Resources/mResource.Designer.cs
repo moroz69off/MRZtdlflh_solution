@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MTDvsFH {
+namespace MTDvsFH.Resources {
     using System;
     
     
@@ -23,7 +23,7 @@ namespace MTDvsFH {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class mResource {
-        
+        internal static string appId;
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
@@ -39,7 +39,7 @@ namespace MTDvsFH {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MTDvsFH.mResource", typeof(mResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MTDvsFH.Resources.mResource", typeof(mResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,39 +61,11 @@ namespace MTDvsFH {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на .
+        ///   Ищет локализованную строку, похожую на 658bcc68acc90d5ba4ed5ca5d7b83ed3.
         /// </summary>
         internal static string apiHash {
             get {
                 return ResourceManager.GetString("apiHash", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на .
-        /// </summary>
-        internal static string apiId {
-            get {
-                return ResourceManager.GetString("apiId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Byte[].
-        /// </summary>
-        internal static byte[] favicon {
-            get {
-                object obj = ResourceManager.GetObject("favicon", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на .
-        /// </summary>
-        internal static string token {
-            get {
-                return ResourceManager.GetString("token", resourceCulture);
             }
         }
     }
