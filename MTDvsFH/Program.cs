@@ -4,7 +4,7 @@ using TdLib;
 using TdAPI = TdLib.TdApi;
 using JsonSerial = Newtonsoft.Json.Serialization;
 using System.Text;
-
+using System.IO;
 
 namespace MTDvsFH
 {
@@ -24,12 +24,19 @@ namespace MTDvsFH
             //Console.WriteLine("Type the you phone number");
             //phoneNumber = Console.ReadLine();
 
+            #region debugmode
+            string[] appStrings = File.ReadAllLines(@"C:\Users\moroz69off\Desktop\rattlesnakeBOT.txt")[12].Split(new char[] { ':' });
+            string dtPath = @"C:\Users\moroz69off\Desktop\";
+            string logName = "tdlog" + DateTime.Now.ToString("yyyy.MM.dd-HH.mm.ss") + ".txt";
+            string logPath = dtPath + logName;
+            #endregion debugmode
+
             parameters = new TdAPI.TdlibParameters()
             {
-                ApiId = int.Parse(""),
+                ApiId = int.Parse(appStrings[0]),
                 UseChatInfoDatabase=true,
                 UseMessageDatabase=true,
-                ApiHash = "",
+                ApiHash = appStrings[1],
                 ApplicationVersion = "1.0",
                 SystemLanguageCode = "ru-RU",
                 DeviceModel = "desktop",
@@ -37,15 +44,13 @@ namespace MTDvsFH
                 UseFileDatabase = true,
                 UseTestDc = true
             };
-            
+            Console.WriteLine("appId: " + appStrings[0] + '\n' + "api hash: " + appStrings[1] + '\n');
             client = new TdLib.TdClient();
             client.SetTdlibParametersAsync(parameters);
-            client.GetAuthorizationStateAsync();
-            Task<TdAPI.Ok> encription = client.CheckDatabaseEncryptionKeyAsync(encryptionKey);
-            client.SendMessageAsync(464756882, 464756882, null, null, new TdAPI.InputMessageContent());
-            client.CloseAsync();
+            var clientAuthState = client.GetAuthorizationStateAsync();
+            Console.WriteLine(clientAuthState.Result);
 
-            Console.ReadLine();
+            client.CloseAsync();
         }
     }
 }
