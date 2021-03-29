@@ -44,8 +44,10 @@ namespace MTDvsFH
                 UseFileDatabase = true,
                 UseTestDc = true
             };
-            Console.WriteLine("appId: " + appStrings[0] + '\n' + "api hash: " + appStrings[1] + '\n');
             client = new TdLib.TdClient();
+            var clientSetLogVerbosityLevel = client.Execute(new TdAPI.SetLogVerbosityLevel());
+            if (!(client.Execute(new TdAPI.SetLogVerbosityLevel()) is TdApi.Ok)) throw new IOException("Write access to the current directory is required");
+            
             client.SetTdlibParametersAsync(parameters);
             var clientAuthState = client.GetAuthorizationStateAsync();
             Console.WriteLine(clientAuthState.Result);
