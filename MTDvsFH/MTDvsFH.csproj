@@ -24,4 +24,19 @@
     </Reference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="mrzRes.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>mrzRes.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="mrzRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>mrzRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

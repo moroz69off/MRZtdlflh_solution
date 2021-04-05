@@ -5,6 +5,7 @@ using TdAPI = TdLib.TdApi;
 using JsonSerial = Newtonsoft.Json.Serialization;
 using System.Text;
 using System.IO;
+using System.Collections.Generic;
 
 namespace MTDvsFH
 {
@@ -14,7 +15,7 @@ namespace MTDvsFH
         private static string phoneNumber = null;
         static TdAPI.Ok Tok = null;
         private static TdAPI.Client client = null;
-        static TdAPI.InlineQueryResult GetInlineQueryResult = null;
+        static TdAPI.InlineQueryResult GetInlResult = null;
         private static TdAPI.TdlibParameters parameters;
 
         static void Main(string[] args)
@@ -25,18 +26,16 @@ namespace MTDvsFH
             //phoneNumber = Console.ReadLine();
 
             #region debugmode
-            string[] appStrings = File.ReadAllLines(@"C:\Users\moroz69off\Desktop\rattlesnakeBOT.txt")[12].Split(new char[] { ':' });
-            string dtPath = @"C:\Users\moroz69off\Desktop\";
-            string logName = "tdlog" + DateTime.Now.ToString("yyyy.MM.dd-HH.mm.ss") + ".txt";
-            string logPath = dtPath + logName;
-            #endregion debugmode
+            string appHash = mrzRes.appKey;
+            int appId = int.Parse(mrzRes.appID);
+            #endregion
 
             parameters = new TdAPI.TdlibParameters()
             {
-                ApiId = int.Parse(appStrings[0]),
+                ApiId = appId,
                 UseChatInfoDatabase=true,
                 UseMessageDatabase=true,
-                ApiHash = appStrings[1],
+                ApiHash = appHash,
                 ApplicationVersion = "1.0",
                 SystemLanguageCode = "ru-RU",
                 DeviceModel = "desktop",
@@ -44,15 +43,29 @@ namespace MTDvsFH
                 UseFileDatabase = true,
                 UseTestDc = true
             };
-            client = new TdLib.TdClient();
+
+            client = new TdClient();
+            
+            client.SetTdlibParametersAsync(parameters);
+
+            encryptionKey = Encoding.ASCII.GetBytes(publicKey);
+            var checkEncription = client.CheckDatabaseEncryptionKeyAsync(encryptionKey);
+            
             var clientSetLogVerbosityLevel = client.Execute(new TdAPI.SetLogVerbosityLevel());
             if (!(client.Execute(new TdAPI.SetLogVerbosityLevel()) is TdApi.Ok)) throw new IOException("Write access to the current directory is required");
             
-            client.SetTdlibParametersAsync(parameters);
+            
             var clientAuthState = client.GetAuthorizationStateAsync();
-            Console.WriteLine(clientAuthState.Result);
+            Console.WriteLine("client Auth State ====== " + clientAuthState);
+            var me = client.GetMeAsync();
 
+            var appChat = client.GetChatAsync(appId);
+            var ME = client.GetMeAsync();
+            var status = ME.Status;
+            Console.WriteLine(status);
             client.CloseAsync();
         }
+
+        private static string publicKey = mrzRes.publicKey;
     }
 }

@@ -351,11 +351,7 @@ healthchecksdb
 *.old
 
 # My config files
-*mrz*.config
-*mrz*.ini
 *[Mm]rz*.config
 *[Mm]rz*.ini
-*Mrz*.config
-*Mrz*.ini
 
 *.log
