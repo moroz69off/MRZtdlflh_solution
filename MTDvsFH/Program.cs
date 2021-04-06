@@ -6,6 +6,7 @@ using JsonSerial = Newtonsoft.Json.Serialization;
 using System.Text;
 using System.IO;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace MTDvsFH
 {
@@ -18,6 +19,16 @@ namespace MTDvsFH
         static TdAPI.InlineQueryResult GetInlResult = null;
         private static TdAPI.TdlibParameters parameters;
 
+        private static TdApi.Client CreateTdClient()
+        {
+            TdAPI.Client result = new TdClient();
+            new Thread(() =>
+            {
+                Thread.CurrentThread.IsBackground = true;
+             
+            }).Start();
+            return result;
+        }
         static void Main(string[] args)
         {
             Console.Title = "moroz69off tg-client";
@@ -44,28 +55,32 @@ namespace MTDvsFH
                 UseTestDc = true
             };
 
-            client = new TdClient();
+            client = CreateTdClient();
             
             client.SetTdlibParametersAsync(parameters);
 
             encryptionKey = Encoding.ASCII.GetBytes(publicKey);
-            var checkEncription = client.CheckDatabaseEncryptionKeyAsync(encryptionKey);
-            
-            var clientSetLogVerbosityLevel = client.Execute(new TdAPI.SetLogVerbosityLevel());
-            if (!(client.Execute(new TdAPI.SetLogVerbosityLevel()) is TdApi.Ok)) throw new IOException("Write access to the current directory is required");
-            
-            
-            var clientAuthState = client.GetAuthorizationStateAsync();
-            Console.WriteLine("client Auth State ====== " + clientAuthState);
-            var me = client.GetMeAsync();
 
-            var appChat = client.GetChatAsync(appId);
-            var ME = client.GetMeAsync();
-            var status = ME.Status;
-            Console.WriteLine(status);
+            if (authorizationState is TdAPI.AuthorizationState.AuthorizationStateWaitEncryptionKey)
+            {
+                client.CheckDatabaseEncryptionKeyAsync(encryptionKey);
+            }
+            client.CheckDatabaseEncryptionKeyAsync(encryptionKey);
+
+            TdAPI.Ok clientSetLogVerbosityLevel = client.Execute(new TdAPI.SetLogVerbosityLevel());
+            if (!(client.Execute(new TdAPI.SetLogVerbosityLevel()) is TdApi.Ok)) throw new IOException("Write access to the current directory is required");
+            Console.WriteLine("Client set log verbosity level ===== " + clientSetLogVerbosityLevel);
+
+
+            Task<TdAPI.AuthorizationState> clientAuthState = client.GetAuthorizationStateAsync();
+            Console.WriteLine("Client auth state ====== " + clientAuthState);
+            Task<TdAPI.Chat> mChat = client.GetChatAsync(464756882);
+            Task<TdAPI.User> ME = client.GetMeAsync();
+            Console.WriteLine(ME.Status);
             client.CloseAsync();
         }
 
         private static string publicKey = mrzRes.publicKey;
+        private static TdAPI.AuthorizationState authorizationState;
     }
 }
