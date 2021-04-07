@@ -16,7 +16,7 @@ namespace MTDvsFH
         private static string phoneNumber = null;
         static TdAPI.Ok Tok = null;
         private static TdAPI.Client client = null;
-        static TdAPI.InlineQueryResult GetInlResult = null;
+        static TdAPI.InlineQueryResult getInlineResult = null;
         private static TdAPI.TdlibParameters parameters;
 
         private static TdApi.Client CreateTdClient()
@@ -61,25 +61,39 @@ namespace MTDvsFH
 
             encryptionKey = Encoding.ASCII.GetBytes(publicKey);
 
+            authorizationState = (TdAPI.AuthorizationState)client.GetAuthorizationStateAsync().AsyncState;
+
             if (authorizationState is TdAPI.AuthorizationState.AuthorizationStateWaitEncryptionKey)
             {
                 client.CheckDatabaseEncryptionKeyAsync(encryptionKey);
+                Console.WriteLine("***CHECK DATABASE ENCRYPTION KEY***");
             }
-            client.CheckDatabaseEncryptionKeyAsync(encryptionKey);
-
+            if (authorizationState is TdAPI.AuthorizationState.AuthorizationStateWaitPassword)
+            {
+                client.CheckAuthenticationPasswordAsync();
+                Console.WriteLine("***CHECK AUTHENTICATION PASSWORD***");
+            }
+            Console.WriteLine("ENCRYPTION KEY LENGTH (BYTES) = " + encryptionKey.Length);
             TdAPI.Ok clientSetLogVerbosityLevel = client.Execute(new TdAPI.SetLogVerbosityLevel());
             if (!(client.Execute(new TdAPI.SetLogVerbosityLevel()) is TdApi.Ok)) throw new IOException("Write access to the current directory is required");
-            Console.WriteLine("Client set log verbosity level ===== " + clientSetLogVerbosityLevel);
+            Console.WriteLine("CLIENT set log VERBOSITY LEVEL = " + clientSetLogVerbosityLevel);
 
 
             Task<TdAPI.AuthorizationState> clientAuthState = client.GetAuthorizationStateAsync();
-            Console.WriteLine("Client auth state ====== " + clientAuthState);
+            Console.WriteLine("CLIENT AUTH STATE = " + clientAuthState);
+
+            var passportElements = client.GetAllPassportElementsAsync();
+            Console.WriteLine("PASSPORT ELEMENTS = " + passportElements);
+
             Task<TdAPI.Chat> mChat = client.GetChatAsync(464756882);
+            appChatStatus = mChat.Status;
+            Console.WriteLine("CHAT STATUS = " + appChatStatus);
             Task<TdAPI.User> ME = client.GetMeAsync();
-            Console.WriteLine(ME.Status);
+            Console.WriteLine("ME STATUS = " + ME.Status);
             client.CloseAsync();
         }
 
+        private static TaskStatus appChatStatus;
         private static string publicKey = mrzRes.publicKey;
         private static TdAPI.AuthorizationState authorizationState;
     }
