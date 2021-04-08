@@ -59,6 +59,7 @@ namespace TdLib
                     }
 
                     _updateReceiverCount++;
+                    Console.WriteLine(_updateReceiverCount);
                 }
             }
             remove

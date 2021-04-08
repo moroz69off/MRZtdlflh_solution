@@ -24,15 +24,6 @@ namespace TdLib.Samples.GetChats
             {
                 switch (update)
                 {
-                    case TdApi.Update.UpdateOption option:
-                        await _client.ExecuteAsync(new TdApi.SetOption
-                        {
-                            DataType = option.DataType,
-                            Extra = option.Extra,
-                            Name = option.Name,
-                            Value = option.Value
-                        });
-                        break;
                     case TdApi.Update.UpdateAuthorizationState updateAuthorizationState when updateAuthorizationState.AuthorizationState.GetType() == typeof(TdApi.AuthorizationState.AuthorizationStateWaitTdlibParameters):
                         await _client.ExecuteAsync(new TdApi.SetTdlibParameters
                         {
