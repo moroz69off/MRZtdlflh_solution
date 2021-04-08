@@ -6,6 +6,7 @@
         <Version>1.7.0</Version>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+        <PackageReference Include="tdlib.native" Version="1.6.0" />
     </ItemGroup>
 </Project>
