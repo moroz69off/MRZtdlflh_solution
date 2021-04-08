@@ -24,9 +24,9 @@ namespace MTDvsFH
             TdAPI.Client result = new TdClient();
             new Thread(() =>
             {
-                Thread.CurrentThread.IsBackground = true;
-             
+                Thread.CurrentThread.IsBackground = false;
             }).Start();
+            Console.WriteLine("TEST NETWORK ASYNC = " + result.TestNetworkAsync());
             return result;
         }
         static void Main(string[] args)
@@ -76,7 +76,7 @@ namespace MTDvsFH
             Console.WriteLine("ENCRYPTION KEY LENGTH (BYTES) = " + encryptionKey.Length);
             TdAPI.Ok clientSetLogVerbosityLevel = client.Execute(new TdAPI.SetLogVerbosityLevel());
             if (!(client.Execute(new TdAPI.SetLogVerbosityLevel()) is TdApi.Ok)) throw new IOException("Write access to the current directory is required");
-            Console.WriteLine("CLIENT set log VERBOSITY LEVEL = " + clientSetLogVerbosityLevel);
+            Console.WriteLine("CLIENT SET LOG VERBOSITY LEVEL = " + clientSetLogVerbosityLevel);
 
 
             Task<TdAPI.AuthorizationState> clientAuthState = client.GetAuthorizationStateAsync();
