@@ -18,7 +18,7 @@ namespace MTDvsFH
         private static TdAPI.Client client = null;
         static TdAPI.InlineQueryResult getInlineResult = null;
         private static TdAPI.TdlibParameters parameters;
-
+        
         private static TdApi.Client CreateTdClient()
         {
             TdAPI.Client result = new TdClient();
@@ -32,7 +32,7 @@ namespace MTDvsFH
         static void Main(string[] args)
         {
             Console.Title = "moroz69off tg-client";
-
+            TdAPI.Update.UpdateAuthorizationState UpdateAuthState = new TdAPI.Update.UpdateAuthorizationState();
             //Console.WriteLine("Type the you phone number");
             //phoneNumber = Console.ReadLine();
 
@@ -54,21 +54,24 @@ namespace MTDvsFH
                 UseFileDatabase = true,
                 UseTestDc = true
             };
+            encryptionKey = Encoding.ASCII.GetBytes(publicKey);
 
             client = CreateTdClient();
-            
-            client.SetTdlibParametersAsync(parameters);
 
-            encryptionKey = Encoding.ASCII.GetBytes(publicKey);
+            client.SetTdlibParametersAsync(parameters);
 
             authorizationState = (TdAPI.AuthorizationState)client.GetAuthorizationStateAsync().AsyncState;
 
-            if (authorizationState is TdAPI.AuthorizationState.AuthorizationStateWaitEncryptionKey)
+            //var state = UpdateAuthState.AuthorizationState;
+            Task<TdAPI.AuthorizationState> state = client.GetAuthorizationStateAsync();
+            Console.WriteLine("AUTHORIZATION STATE = " + state);
+
+            if (state is TdAPI.AuthorizationState.AuthorizationStateWaitEncryptionKey)
             {
                 client.CheckDatabaseEncryptionKeyAsync(encryptionKey);
                 Console.WriteLine("***CHECK DATABASE ENCRYPTION KEY***");
             }
-            if (authorizationState is TdAPI.AuthorizationState.AuthorizationStateWaitPassword)
+            if (state is TdAPI.AuthorizationState.AuthorizationStateWaitPassword)
             {
                 client.CheckAuthenticationPasswordAsync();
                 Console.WriteLine("***CHECK AUTHENTICATION PASSWORD***");
@@ -90,6 +93,12 @@ namespace MTDvsFH
             Console.WriteLine("CHAT STATUS = " + appChatStatus);
             Task<TdAPI.User> ME = client.GetMeAsync();
             Console.WriteLine("ME STATUS = " + ME.Status);
+
+            Task<TdAPI.Sessions> activeSessions = client.GetActiveSessionsAsync();
+            Console.WriteLine("ACTIVE SESSION = " + activeSessions);
+
+            
+
             client.CloseAsync();
         }
 
