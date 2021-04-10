@@ -6,12 +6,12 @@ info: currently versions being supported with security updates.
 *****(какие версии вашего проекта
 в настоящее время поддерживается обновлениями безопасности.)*****
 
-| Version | Supported           |
-| ------- | ------------------- |
-| 5.1.x    | :x:                |
-| 5.0.x    | :x:                |
-| 3.1.x    | :white_check_mark: | (long-term support)
-| < 3.1.x  | :x:                |
+| Version  |     Supported       |
+| -------  | ------------------- |
+| 5.1.x    | :x:                 |
+| 5.0.x    | :x:                 |
+| 3.1.x    | :long-term support: | (long-term support)
+| < 3.1.x  | :x:                 |
 
 ## Reporting a Vulnerability
 If you see a gross violation of security rules, please let me know.
