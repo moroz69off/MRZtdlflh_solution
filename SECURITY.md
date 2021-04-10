@@ -3,8 +3,7 @@
 ## Supported Versions
 
 info: currently versions being supported with security updates.
-*****(какие версии вашего проекта
-в настоящее время поддерживается обновлениями безопасности.)*****
+*****(какие версии проекта поддерживается обновлениями безопасности.)*****
 
 | Version  |     Supported       |
 | -------  | ------------------- |
@@ -19,4 +18,6 @@ I am here inconsistently (sometimes often, sometimes there is no time for severa
 Such comments will be very useful to me, I want to make only reliable and safe decisions.
 
 Create a new topic in discussions, or ask a question.
-Best regards to the secure web community, Yura. info@yumor.xyz
+Best regards to the secure web community, Yura.
+
+[E-MAIL](info@yumor.xyz)
