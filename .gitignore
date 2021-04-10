@@ -389,6 +389,8 @@ healthchecksdb
 *.bak
 *.old
 
+*\launchSettings.json
+
 # My config files
 *[Mm]rz*.config
 *[Mm]rz*.ini
