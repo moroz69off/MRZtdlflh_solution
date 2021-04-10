@@ -4,7 +4,15 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>ddaf92e0-26fe-459a-af82-28a8b20147dd</UserSecretsId>
-    <ApplicationIcon>favicon.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\favicon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Prefer32Bit>true</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <WarningLevel>0</WarningLevel>
+    <OutputPath>bin\Debug\netcoreapp3.1\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,7 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="mrzRes.Designer.cs">
+    <Compile Update="Resources\mrzRes.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>mrzRes.resx</DependentUpon>
@@ -33,7 +41,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="mrzRes.resx">
+    <EmbeddedResource Update="Resources\mrzRes.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>mrzRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>

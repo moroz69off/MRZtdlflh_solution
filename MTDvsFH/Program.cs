@@ -7,6 +7,7 @@ using System.Text;
 using System.IO;
 using System.Collections.Generic;
 using System.Threading;
+using TDLib.Bindings;
 
 namespace MTDvsFH
 {
@@ -21,7 +22,7 @@ namespace MTDvsFH
         
         private static TdApi.Client CreateTdClient()
         {
-            TdAPI.Client result = new TdClient();
+            TdAPI.Client result = new TdClient(bind);
             new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = false;
@@ -33,12 +34,12 @@ namespace MTDvsFH
         {
             Console.Title = "moroz69off tg-client";
             TdAPI.Update.UpdateAuthorizationState UpdateAuthState = new TdAPI.Update.UpdateAuthorizationState();
-            //Console.WriteLine("Type the you phone number");
-            //phoneNumber = Console.ReadLine();
+           Console.WriteLine("\n______________\n"+"Type the you phone number: ");
+            phoneNumber = Console.ReadLine();
 
             #region debugmode
-            string appHash = mrzRes.appKey;
-            int appId = int.Parse(mrzRes.appID);
+            string appHash = Resources.mrzRes.appKey;
+            int appId = int.Parse(Resources.mrzRes.appID);
             #endregion
 
             parameters = new TdAPI.TdlibParameters()
@@ -64,46 +65,58 @@ namespace MTDvsFH
 
             //var state = UpdateAuthState.AuthorizationState;
             Task<TdAPI.AuthorizationState> state = client.GetAuthorizationStateAsync();
-            Console.WriteLine("AUTHORIZATION STATE = " + state);
+            Console.WriteLine("\nAUTHORIZATION STATE (Task<TdAPI.AuthorizationState> state = client.GetAuthorizationStateAsync();) = " + state + "\n______________\n" + "\nAUTHORIZATION STATE (TdAPI.AuthorizationState)client.GetAuthorizationStateAsync().AsyncState;) = " + authorizationState + "\n______________\n");
 
-            if (state is TdAPI.AuthorizationState.AuthorizationStateWaitEncryptionKey)
+            if (authorizationState is TdAPI.AuthorizationState.AuthorizationStateWaitEncryptionKey)
             {
+                Console.WriteLine("\n***CHECK DATABASE ENCRYPTION KEY***" + "\n______________\n");
                 client.CheckDatabaseEncryptionKeyAsync(encryptionKey);
-                Console.WriteLine("***CHECK DATABASE ENCRYPTION KEY***");
             }
-            if (state is TdAPI.AuthorizationState.AuthorizationStateWaitPassword)
+
+            Console.WriteLine("\nAUTHORIZATION STATE = " + state + "\n______________\n");
+
+            if (authorizationState is TdAPI.AuthorizationState.AuthorizationStateWaitPassword)
             {
+                Console.WriteLine("\n***CHECK AUTHENTICATION PASSWORD***" + "\n______________\n");
                 client.CheckAuthenticationPasswordAsync();
-                Console.WriteLine("***CHECK AUTHENTICATION PASSWORD***");
             }
-            Console.WriteLine("ENCRYPTION KEY LENGTH (BYTES) = " + encryptionKey.Length);
+
+            Console.WriteLine("\nAUTHORIZATION STATE = " + state + "\n______________\n");
+
+            Console.WriteLine("\nENCRYPTION KEY LENGTH (BYTES) = " + encryptionKey.Length + "\n______________\n");
             TdAPI.Ok clientSetLogVerbosityLevel = client.Execute(new TdAPI.SetLogVerbosityLevel());
-            if (!(client.Execute(new TdAPI.SetLogVerbosityLevel()) is TdApi.Ok)) throw new IOException("Write access to the current directory is required");
-            Console.WriteLine("CLIENT SET LOG VERBOSITY LEVEL = " + clientSetLogVerbosityLevel);
+            if (!(client.Execute(new TdAPI.SetLogVerbosityLevel()) is TdApi.Ok)) throw new IOException("\nWrite access to the current directory is required" + "\n______________\n");
+            Console.WriteLine("\nCLIENT SET LOG VERBOSITY LEVEL = " + clientSetLogVerbosityLevel + "\n______________\n");
 
 
             Task<TdAPI.AuthorizationState> clientAuthState = client.GetAuthorizationStateAsync();
-            Console.WriteLine("CLIENT AUTH STATE = " + clientAuthState);
+            Console.WriteLine("\nCLIENT AUTH STATE = " + clientAuthState + "\n______________\n");
 
             var passportElements = client.GetAllPassportElementsAsync();
-            Console.WriteLine("PASSPORT ELEMENTS = " + passportElements);
+            Console.WriteLine("\nPASSPORT ELEMENTS = " + passportElements + "\n______________\n");
 
             Task<TdAPI.Chat> mChat = client.GetChatAsync(464756882);
             appChatStatus = mChat.Status;
-            Console.WriteLine("CHAT STATUS = " + appChatStatus);
+            Console.WriteLine("\nCHAT STATUS = " + appChatStatus + "\n______________\n");
             Task<TdAPI.User> ME = client.GetMeAsync();
-            Console.WriteLine("ME STATUS = " + ME.Status);
+            Console.WriteLine("\nME STATUS = " + ME.Status + "\n______________\n");
 
             Task<TdAPI.Sessions> activeSessions = client.GetActiveSessionsAsync();
-            Console.WriteLine("ACTIVE SESSION = " + activeSessions);
+            Console.WriteLine("\nACTIVE SESSION = " + activeSessions + "\n______________\n");
 
-            
+            var appConfig = client.GetApplicationConfigAsync();
+            Console.WriteLine("\nIS COMPLETED ('TRUE' or 'FALSE')\nПолучает объект состояния, предоставленный при создании System.Threading.Tasks.Task,\nили null, если ничего не было предоставлено.\nIS COMPLETED===" + appConfig.IsCompleted + "\n______________\n");
 
+            Console.WriteLine("\nAUTHORIZATION STATE = " + state + "\n______________\n");
+
+            //ЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖ
+            // AUTHORIZATION STATE = System.Threading.Tasks.Task`1[TdLib.TdApi+AuthorizationState]
             client.CloseAsync();
         }
 
         private static TaskStatus appChatStatus;
-        private static string publicKey = mrzRes.publicKey;
+        private static string publicKey = Resources.mrzRes.publicKey;
         private static TdAPI.AuthorizationState authorizationState;
+        private static ITdLibBindings bind;
     }
 }

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MTDvsFH {
+namespace MTDvsFH.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace MTDvsFH {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MTDvsFH.mrzRes", typeof(mrzRes).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MTDvsFH.Resources.mrzRes", typeof(mrzRes).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -84,16 +84,6 @@ namespace MTDvsFH {
         internal static string appTitle {
             get {
                 return ResourceManager.GetString("appTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Byte[].
-        /// </summary>
-        internal static byte[] mrzflh {
-            get {
-                object obj = ResourceManager.GetObject("mrzflh", resourceCulture);
-                return ((byte[])(obj));
             }
         }
         
