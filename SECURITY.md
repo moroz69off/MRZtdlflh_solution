@@ -20,4 +20,4 @@ Such comments will be very useful to me, I want to make only reliable and safe d
 Create a new topic in discussions, or ask a question.
 Best regards to the secure web community, Yura.
 
-[E-MAIL](info@yumor.xyz)
+[E-MAIL](mailto:info@yumor.xyz?subject=GitHub%20Td%20proj.%20security)
