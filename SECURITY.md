@@ -2,20 +2,21 @@
 
 ## Supported Versions
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+info: currently versions being supported with security updates.
+*****(какие версии вашего проекта
+в настоящее время поддерживается обновлениями безопасности.)*****
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+| Version | Supported           |
+| ------- | ------------------- |
+| 5.1.x    | :x:                |
+| 5.0.x    | :x:                |
+| 3.1.x    | :white_check_mark: | (long-term support)
+| < 3.1.x  | :x:                |
 
 ## Reporting a Vulnerability
+If you see a gross violation of security rules, please let me know.
+I am here inconsistently (sometimes often, sometimes there is no time for several days).
+Such comments will be very useful to me, I want to make only reliable and safe decisions.
 
-Use this section to tell people how to report a vulnerability.
-
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+Create a new topic in discussions, or ask a question.
+Best regards to the secure web community, Yura. info@yumor.xyz
