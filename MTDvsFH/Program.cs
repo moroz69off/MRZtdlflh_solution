@@ -22,7 +22,8 @@ namespace MTDvsFH
         
         private static TdApi.Client CreateTdClient()
         {
-            TdAPI.Client result = new TdClient(bind);
+            //bind = null;
+            TdAPI.Client result = new TdClient();
             new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = false;
@@ -45,13 +46,13 @@ namespace MTDvsFH
             parameters = new TdAPI.TdlibParameters()
             {
                 ApiId = appId,
-                UseChatInfoDatabase=true,
-                UseMessageDatabase=true,
                 ApiHash = appHash,
                 ApplicationVersion = "1.0",
-                SystemLanguageCode = "ru-RU",
                 DeviceModel = "desktop",
+                SystemLanguageCode = "ru-RU",
                 SystemVersion = "Windows 10 Pro",
+                UseChatInfoDatabase = true,
+                UseMessageDatabase=true,
                 UseFileDatabase = true,
                 UseTestDc = true
             };
@@ -110,7 +111,7 @@ namespace MTDvsFH
             Console.WriteLine("\nAUTHORIZATION STATE = " + state + "\n______________\n");
 
             //ЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖ
-            // AUTHORIZATION STATE = System.Threading.Tasks.Task`1[TdLib.TdApi+AuthorizationState]
+
             client.CloseAsync();
         }
 
