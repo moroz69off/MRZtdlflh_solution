@@ -9,7 +9,7 @@ info: currently versions being supported with security updates.
 | -------  | ------------------- |
 | 5.1.x    | :x:                 |
 | 5.0.x    | :x:                 |
-| 3.1.x    | :long-term support: | (long-term support)
+| 3.1.x    | ✔️:long-term support: | (long-term support)
 | < 3.1.x  | :x:                 |
 
 ## Reporting a Vulnerability
