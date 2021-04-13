@@ -47,6 +47,6 @@
     </EmbeddedResource>
   </ItemGroup>
 
-  <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="https://json.schemastore.org/nswag.json" /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="https://json.schemastore.org/web-types.json" /></VisualStudio></ProjectExtensions>
 
 </Project>
