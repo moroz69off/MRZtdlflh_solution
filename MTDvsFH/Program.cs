@@ -35,8 +35,9 @@ namespace MTDvsFH
         {
             Console.Title = "moroz69off tg-client";
             TdAPI.Update.UpdateAuthorizationState UpdateAuthState = new TdAPI.Update.UpdateAuthorizationState();
-           Console.WriteLine("\n______________\n"+"Type the you phone number: ");
-            phoneNumber = Console.ReadLine();
+
+            //Console.WriteLine("\n______________\n"+"Type the you phone number: ");
+            //phoneNumber = Console.ReadLine();
 
             #region debugmode
             string appHash = Resources.mrzRes.appKey;
@@ -66,7 +67,7 @@ namespace MTDvsFH
 
             //var state = UpdateAuthState.AuthorizationState;
             Task<TdAPI.AuthorizationState> state = client.GetAuthorizationStateAsync();
-            Console.WriteLine("\nAUTHORIZATION STATE (Task<TdAPI.AuthorizationState> state = client.GetAuthorizationStateAsync();) = " + state + "\n______________\n" + "\nAUTHORIZATION STATE (TdAPI.AuthorizationState)client.GetAuthorizationStateAsync().AsyncState;) = " + authorizationState + "\n______________\n");
+            //Console.WriteLine("\nAUTHORIZATION STATE (Task<TdAPI.AuthorizationState> state = client.GetAuthorizationStateAsync();) = " + state + "\n______________\n" + "\nAUTHORIZATION STATE (TdAPI.AuthorizationState)client.GetAuthorizationStateAsync().AsyncState;) = " + authorizationState + "\n______________\n");
 
             if (authorizationState is TdAPI.AuthorizationState.AuthorizationStateWaitEncryptionKey)
             {
@@ -74,7 +75,7 @@ namespace MTDvsFH
                 client.CheckDatabaseEncryptionKeyAsync(encryptionKey);
             }
 
-            Console.WriteLine("\nAUTHORIZATION STATE = " + state + "\n______________\n");
+            //Console.WriteLine("\nAUTHORIZATION STATE = " + state + "\n______________\n");
 
             if (authorizationState is TdAPI.AuthorizationState.AuthorizationStateWaitPassword)
             {
@@ -82,19 +83,19 @@ namespace MTDvsFH
                 client.CheckAuthenticationPasswordAsync();
             }
 
-            Console.WriteLine("\nAUTHORIZATION STATE = " + state + "\n______________\n");
+            //Console.WriteLine("\nAUTHORIZATION STATE = " + state + "\n______________\n");
 
-            Console.WriteLine("\nENCRYPTION KEY LENGTH (BYTES) = " + encryptionKey.Length + "\n______________\n");
+            //Console.WriteLine("\nENCRYPTION KEY LENGTH (BYTES) = " + encryptionKey.Length + "\n______________\n");
             TdAPI.Ok clientSetLogVerbosityLevel = client.Execute(new TdAPI.SetLogVerbosityLevel());
             if (!(client.Execute(new TdAPI.SetLogVerbosityLevel()) is TdApi.Ok)) throw new IOException("\nWrite access to the current directory is required" + "\n______________\n");
-            Console.WriteLine("\nCLIENT SET LOG VERBOSITY LEVEL = " + clientSetLogVerbosityLevel + "\n______________\n");
+            //Console.WriteLine("\nCLIENT SET LOG VERBOSITY LEVEL = " + clientSetLogVerbosityLevel + "\n______________\n");
 
 
             Task<TdAPI.AuthorizationState> clientAuthState = client.GetAuthorizationStateAsync();
-            Console.WriteLine("\nCLIENT AUTH STATE = " + clientAuthState + "\n______________\n");
+            //Console.WriteLine("\nCLIENT AUTH STATE = " + clientAuthState + "\n______________\n");
 
             var passportElements = client.GetAllPassportElementsAsync();
-            Console.WriteLine("\nPASSPORT ELEMENTS = " + passportElements + "\n______________\n");
+            //Console.WriteLine("\nPASSPORT ELEMENTS = " + passportElements + "\n______________\n");
 
             Task<TdAPI.Chat> mChat = client.GetChatAsync(464756882);
             appChatStatus = mChat.Status;
