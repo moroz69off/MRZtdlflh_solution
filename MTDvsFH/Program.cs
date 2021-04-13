@@ -8,7 +8,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Threading;
 using TDLib.Bindings;
-
+// 464756882
 namespace MTDvsFH
 {
     class Program
@@ -62,12 +62,10 @@ namespace MTDvsFH
             client = CreateTdClient();
 
             client.SetTdlibParametersAsync(parameters);
-
+            client.CheckDatabaseEncryptionKeyAsync(encryptionKey);
             authorizationState = (TdAPI.AuthorizationState)client.GetAuthorizationStateAsync().AsyncState;
 
-            //var state = UpdateAuthState.AuthorizationState;
-            Task<TdAPI.AuthorizationState> state = client.GetAuthorizationStateAsync();
-            //Console.WriteLine("\nAUTHORIZATION STATE (Task<TdAPI.AuthorizationState> state = client.GetAuthorizationStateAsync();) = " + state + "\n______________\n" + "\nAUTHORIZATION STATE (TdAPI.AuthorizationState)client.GetAuthorizationStateAsync().AsyncState;) = " + authorizationState + "\n______________\n");
+            var state = UpdateAuthState.AuthorizationState;
 
             if (authorizationState is TdAPI.AuthorizationState.AuthorizationStateWaitEncryptionKey)
             {
@@ -75,7 +73,6 @@ namespace MTDvsFH
                 client.CheckDatabaseEncryptionKeyAsync(encryptionKey);
             }
 
-            //Console.WriteLine("\nAUTHORIZATION STATE = " + state + "\n______________\n");
 
             if (authorizationState is TdAPI.AuthorizationState.AuthorizationStateWaitPassword)
             {
@@ -83,19 +80,15 @@ namespace MTDvsFH
                 client.CheckAuthenticationPasswordAsync();
             }
 
-            //Console.WriteLine("\nAUTHORIZATION STATE = " + state + "\n______________\n");
 
-            //Console.WriteLine("\nENCRYPTION KEY LENGTH (BYTES) = " + encryptionKey.Length + "\n______________\n");
             TdAPI.Ok clientSetLogVerbosityLevel = client.Execute(new TdAPI.SetLogVerbosityLevel());
             if (!(client.Execute(new TdAPI.SetLogVerbosityLevel()) is TdApi.Ok)) throw new IOException("\nWrite access to the current directory is required" + "\n______________\n");
-            //Console.WriteLine("\nCLIENT SET LOG VERBOSITY LEVEL = " + clientSetLogVerbosityLevel + "\n______________\n");
 
 
             Task<TdAPI.AuthorizationState> clientAuthState = client.GetAuthorizationStateAsync();
-            //Console.WriteLine("\nCLIENT AUTH STATE = " + clientAuthState + "\n______________\n");
 
             var passportElements = client.GetAllPassportElementsAsync();
-            //Console.WriteLine("\nPASSPORT ELEMENTS = " + passportElements + "\n______________\n");
+
 
             Task<TdAPI.Chat> mChat = client.GetChatAsync(464756882);
             appChatStatus = mChat.Status;
@@ -104,13 +97,20 @@ namespace MTDvsFH
             Console.WriteLine("\nME STATUS = " + ME.Status + "\n______________\n");
 
             Task<TdAPI.Sessions> activeSessions = client.GetActiveSessionsAsync();
-            Console.WriteLine("\nACTIVE SESSION = " + activeSessions + "\n______________\n");
+
 
             var appConfig = client.GetApplicationConfigAsync();
             Console.WriteLine("\nIS COMPLETED ('TRUE' or 'FALSE')\nПолучает объект состояния, предоставленный при создании System.Threading.Tasks.Task,\nили null, если ничего не было предоставлено.\nIS COMPLETED===" + appConfig.IsCompleted + "\n______________\n");
 
             Console.WriteLine("\nAUTHORIZATION STATE = " + state + "\n______________\n");
+            //ЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖ
 
+            //scheduler = TaskScheduler.FromCurrentSynchronizationContext();
+            // mChat.Start(scheduler);
+            WaitForChangedResult waitFor = new WaitForChangedResult();
+            waitFor.ChangeType = (WatcherChangeTypes)mChat.Status;
+            Type wfType = waitFor.GetType();
+            Console.WriteLine("MCHAT.STATUS = " + wfType); // System.IO.WaitForChangedResult
             //ЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖ
 
             client.CloseAsync();
@@ -120,5 +120,6 @@ namespace MTDvsFH
         private static string publicKey = Resources.mrzRes.publicKey;
         private static TdAPI.AuthorizationState authorizationState;
         private static ITdLibBindings bind;
+        //private static TaskScheduler scheduler;
     }
 }
