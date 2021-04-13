@@ -6,9 +6,9 @@ I will use [TdLib.API](https://github.com/tdlib/td)
 
 __And...__
 ### I want...
-*****- make a bot that will beg :)*****
-*****- make a perpetum mobile machine   o_0*****
-*****- GIVE EVERYONE BREAD, WATER AND HEALTH!!!!*****
+- make a bot that will beg :)
+- make a perpetum mobile machine   o_0
+- GIVE EVERYONE BREAD, WATER AND HEALTH!!!!
 
 
    ___
