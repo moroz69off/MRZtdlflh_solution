@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace TdLib.Samples.GetChats
 {
-    class Program
+    class SampleProg
     {
         private static readonly int ApiId = int.Parse(TDLib.Samples.GetChats.mRes.appID);
         private static readonly string ApiHash = TDLib.Samples.GetChats.mRes.appHash;
