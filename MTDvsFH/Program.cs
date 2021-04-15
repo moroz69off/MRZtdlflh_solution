@@ -65,14 +65,11 @@ namespace MTDvsFH
             client.CheckDatabaseEncryptionKeyAsync(encryptionKey);
             authorizationState = (TdAPI.AuthorizationState)client.GetAuthorizationStateAsync().AsyncState;
 
-            var state = UpdateAuthState.AuthorizationState;
-
             if (authorizationState is TdAPI.AuthorizationState.AuthorizationStateWaitEncryptionKey)
             {
                 Console.WriteLine("\n***CHECK DATABASE ENCRYPTION KEY***" + "\n______________\n");
                 client.CheckDatabaseEncryptionKeyAsync(encryptionKey);
             }
-
 
             if (authorizationState is TdAPI.AuthorizationState.AuthorizationStateWaitPassword)
             {
@@ -80,15 +77,12 @@ namespace MTDvsFH
                 client.CheckAuthenticationPasswordAsync();
             }
 
-
             TdAPI.Ok clientSetLogVerbosityLevel = client.Execute(new TdAPI.SetLogVerbosityLevel());
             if (!(client.Execute(new TdAPI.SetLogVerbosityLevel()) is TdApi.Ok)) throw new IOException("\nWrite access to the current directory is required" + "\n______________\n");
-
 
             Task<TdAPI.AuthorizationState> clientAuthState = client.GetAuthorizationStateAsync();
 
             var passportElements = client.GetAllPassportElementsAsync();
-
 
             Task<TdAPI.Chat> mChat = client.GetChatAsync(464756882);
             appChatStatus = mChat.Status;
@@ -98,19 +92,10 @@ namespace MTDvsFH
 
             Task<TdAPI.Sessions> activeSessions = client.GetActiveSessionsAsync();
 
-
             var appConfig = client.GetApplicationConfigAsync();
-            Console.WriteLine("\nIS COMPLETED ('TRUE' or 'FALSE')\nПолучает объект состояния, предоставленный при создании System.Threading.Tasks.Task,\nили null, если ничего не было предоставлено.\nIS COMPLETED===" + appConfig.IsCompleted + "\n______________\n");
 
-            Console.WriteLine("\nAUTHORIZATION STATE = " + state + "\n______________\n");
             //ЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖ
 
-            //scheduler = TaskScheduler.FromCurrentSynchronizationContext();
-            // mChat.Start(scheduler);
-            WaitForChangedResult waitFor = new WaitForChangedResult();
-            waitFor.ChangeType = (WatcherChangeTypes)mChat.Status;
-            Type wfType = waitFor.GetType();
-            Console.WriteLine("MCHAT.STATUS = " + wfType); // System.IO.WaitForChangedResult
             //ЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖЖ
 
             client.CloseAsync();
