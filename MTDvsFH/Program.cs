@@ -13,8 +13,6 @@ namespace MTDvsFH
 {
     class Program
     {
-        private static byte[] encryptionKey = null;
-        private static string phoneNumber = null;
         static TdAPI.Ok OK = null;
         private static TdAPI.Client client = null;
         static TdAPI.InlineQueryResult getInlineResult = null;
@@ -25,14 +23,19 @@ namespace MTDvsFH
             Console.Title = "moroz69off tg-client";
             TdAPI.Update.UpdateAuthorizationState UpdateAuthState = new TdAPI.Update.UpdateAuthorizationState();
 
+            #region debugmode
+
             //Console.WriteLine("\n______________\n"+"Type the you phone number: ");
             //phoneNumber = Console.ReadLine();
 
-            #region debugmode
+            string phoneNumber = Resources.mrzRes.phoneNumber;
+            string publicKey = Resources.mrzRes.publicKey;
             string appHash = Resources.mrzRes.appKey;
             int appId = int.Parse(Resources.mrzRes.appID);
+            byte[] encryptionKey = Encoding.ASCII.GetBytes(publicKey);
+
             #endregion
-            encryptionKey = Encoding.ASCII.GetBytes(publicKey);
+
             parameters = new TdAPI.TdlibParameters()
             {
                 ApiId = appId,
@@ -47,9 +50,9 @@ namespace MTDvsFH
                 UseTestDc = true
             };
 
+
+
             client.CloseAsync();
         }
-
-        private static string publicKey = Resources.mrzRes.publicKey;
     }
 }
