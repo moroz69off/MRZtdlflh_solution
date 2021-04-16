@@ -66,6 +66,7 @@ namespace TdLib.Samples.GetChats
             };
 
             ResetEvent.Wait();
+
             if (_authNeeded)
             {
                 await _client.ExecuteAsync(new TdApi.SetAuthenticationPhoneNumber
