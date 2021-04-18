@@ -60,47 +60,23 @@ namespace MTDvsFH
                 UseTestDc = true
             };
 
-            client.SetTdlibParametersAsync(parameters);
+            var param = client.SetTdlibParametersAsync(parameters);
 
-            var encription = client.CheckDatabaseEncryptionKeyAsync(encryptionKey);
+            var encript = client.CheckDatabaseEncryptionKeyAsync(encryptionKey);
 
             var phone = client.SetAuthenticationPhoneNumberAsync(phoneNumber);
 
             client.UpdateReceived += async (sender, update) => {
-                switch (update)
+                Console.WriteLine("\n\n\n\n\n***UPDATE RECEIVED***\n" +
+                    "\nSTATUS: \t" + client.GetAuthorizationStateAsync().Status +
+                    "\nASYNC STATE: \t" + client.GetAuthorizationStateAsync().AsyncState +
+                    "\nRESULT: \t" + client.GetAuthorizationStateAsync().Result +
+                    "\n∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆\n\n");
+                if (client.GetAuthorizationStateAsync() == TdLib.TdApi.AuthorizationState.AuthorizationStateWaitCode)
                 {
-                    case TdApi.Update.UpdateAuthorizationState updateAuthorizationState when updateAuthorizationState.AuthorizationState.GetType() == typeof(TdApi.AuthorizationState.AuthorizationStateWaitRegistration):
-                        authNeeded = true;
-                        resetEvent.Set();
-                        break;
-                    //case TdApi.Update.UpdateAuthorizationState updateAuthorizationState when updateAuthorizationState.AuthorizationState.GetType() == typeof(TdApi.AuthorizationState.AuthorizationStateWaitTdlibParameters):
-                    //    Parameters = parameters;
-                    //    client.SetTdlibParametersAsync(Parameters);
-                    //    break;
-                    //case TdApi.Update.UpdateAuthorizationState updateAuthorizationState when updateAuthorizationState.AuthorizationState.GetType() == typeof(TdApi.AuthorizationState.AuthorizationStateWaitEncryptionKey):
-                    //    client.CheckDatabaseEncryptionKeyAsync(encryptionKey);
-                    //    break;
-                    //case TdApi.Update.UpdateAuthorizationState updateAuthorizationState when updateAuthorizationState.AuthorizationState.GetType() == typeof(TdApi.AuthorizationState.AuthorizationStateWaitPhoneNumber):
-                    //    authNeeded = true;
-                    //    resetEvent.Set();
-                    //    break;
-                    case TdApi.Update.UpdateAuthorizationState updateAuthorizationState when updateAuthorizationState.AuthorizationState.GetType() == typeof(TdApi.AuthorizationState.AuthorizationStateWaitCode):
-                        Console.Write("Insert the login code: ");
-                        string code = Console.ReadLine();
-                        await client.ExecuteAsync(new TdApi.CheckAuthenticationCode
-                        {
-                            Code = code
-                        });
-                        break;
-                    case TdApi.Update.UpdateUser updateUser:
-                        resetEvent.Set();
-                        break;
-                    case TdApi.Update.UpdateConnectionState updateConnectionState when updateConnectionState.State.GetType() == typeof(TdApi.ConnectionState.ConnectionStateReady):
-                        break;
-
-                    default:
-                        ; // add a breakpoint here to see other events
-                        break;
+                    Console.WriteLine("\n\t**********\n\t" +
+                        "AUTHORIZATION STATE: \t" + client.GetAuthorizationStateAsync().Result +
+                        "\n\t**********\n\n\n\n\n");
                 }
             };
 
