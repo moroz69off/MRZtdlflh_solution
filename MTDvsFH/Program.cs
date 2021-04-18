@@ -32,7 +32,7 @@ namespace MTDvsFH
 
             TdAPI.SetLogVerbosityLevel level = new TdAPI.SetLogVerbosityLevel();
             //level.NewVerbosityLevel = 0;
-
+            var uthorizationState = new TdApi.AuthorizationState();
             updateAuthState = new TdAPI.Update.UpdateAuthorizationState();
 
             #region debugmode
@@ -72,10 +72,10 @@ namespace MTDvsFH
                     "\nASYNC STATE: \t" + client.GetAuthorizationStateAsync().AsyncState +
                     "\nRESULT: \t" + client.GetAuthorizationStateAsync().Result +
                     "\n∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆\n\n");
-                if (client.GetAuthorizationStateAsync() == TdLib.TdApi.AuthorizationState.AuthorizationStateWaitCode)
+                if (true)
                 {
                     Console.WriteLine("\n\t**********\n\t" +
-                        "AUTHORIZATION STATE: \t" + client.GetAuthorizationStateAsync().Result +
+                        "CLIENT AUTHORIZATION STATE: \t" + client.GetAuthorizationStateAsync().Result +
                         "\n\t**********\n\n\n\n\n");
                 }
             };

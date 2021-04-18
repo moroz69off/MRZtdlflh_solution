@@ -5,6 +5,12 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>ddaf92e0-26fe-459a-af82-28a8b20147dd</UserSecretsId>
     <ApplicationIcon>Resources\favicon.ico</ApplicationIcon>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Authors>moroz69off, core.telegram.org/tdlib</Authors>
+    <PackageIcon>ILLO_Hero_SmartRecs_1520_color__1_.png</PackageIcon>
+    <Copyright>moroz69off</Copyright>
+    <PackageLicenseExpression>moroz69off lic</PackageLicenseExpression>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -13,6 +19,7 @@
     <Optimize>true</Optimize>
     <WarningLevel>0</WarningLevel>
     <OutputPath>bin\Debug\netcoreapp3.1\</OutputPath>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,16 +27,6 @@
     <PackageReference Include="TDLib" Version="1.7.0" />
     <PackageReference Include="TDLib.Api" Version="1.7.0" />
     <PackageReference Include="tdlib.native" Version="1.6.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="TDLib">
-      <HintPath>..\..\..\..\..\.nuget\packages\tdlib\1.6.0\lib\netstandard2.0\TDLib.dll</HintPath>
-      <Private>true</Private>
-    </Reference>
-    <Reference Include="TDLib.Api">
-      <HintPath>..\..\..\..\..\.nuget\packages\tdlib.api\1.6.0\lib\netstandard2.0\TDLib.Api.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
   <ItemGroup>
@@ -49,6 +46,13 @@
 
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\ILLO_Hero_SmartRecs_1520_color__1_.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
