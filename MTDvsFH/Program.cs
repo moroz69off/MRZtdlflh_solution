@@ -69,28 +69,28 @@ namespace MTDvsFH
             client.UpdateReceived += async (sender, update) => {
                 switch (update)
                 {
-                    case TdApi.Update.UpdateAuthorizationState updateAuthorizationState when updateAuthorizationState.AuthorizationState.GetType() == typeof(TdApi.AuthorizationState.AuthorizationStateWaitPhoneNumber):
+                    case TdApi.Update.UpdateAuthorizationState updateAuthorizationState when updateAuthorizationState.AuthorizationState.GetType() == typeof(TdApi.AuthorizationState.AuthorizationStateWaitRegistration):
+                        authNeeded = true;
+                        resetEvent.Set();
+                        break;
+                    //case TdApi.Update.UpdateAuthorizationState updateAuthorizationState when updateAuthorizationState.AuthorizationState.GetType() == typeof(TdApi.AuthorizationState.AuthorizationStateWaitTdlibParameters):
+                    //    Parameters = parameters;
+                    //    client.SetTdlibParametersAsync(Parameters);
+                    //    break;
+                    //case TdApi.Update.UpdateAuthorizationState updateAuthorizationState when updateAuthorizationState.AuthorizationState.GetType() == typeof(TdApi.AuthorizationState.AuthorizationStateWaitEncryptionKey):
+                    //    client.CheckDatabaseEncryptionKeyAsync(encryptionKey);
+                    //    break;
+                    //case TdApi.Update.UpdateAuthorizationState updateAuthorizationState when updateAuthorizationState.AuthorizationState.GetType() == typeof(TdApi.AuthorizationState.AuthorizationStateWaitPhoneNumber):
+                    //    authNeeded = true;
+                    //    resetEvent.Set();
+                    //    break;
+                    case TdApi.Update.UpdateAuthorizationState updateAuthorizationState when updateAuthorizationState.AuthorizationState.GetType() == typeof(TdApi.AuthorizationState.AuthorizationStateWaitCode):
                         Console.Write("Insert the login code: ");
                         string code = Console.ReadLine();
                         await client.ExecuteAsync(new TdApi.CheckAuthenticationCode
                         {
                             Code = code
                         });
-                        break;
-                    case TdApi.Update.UpdateAuthorizationState updateAuthorizationState when updateAuthorizationState.AuthorizationState.GetType() == typeof(TdApi.AuthorizationState.AuthorizationStateWaitTdlibParameters):
-                        Parameters = parameters;
-                        client.SetTdlibParametersAsync(Parameters);
-                        break;
-                    case TdApi.Update.UpdateAuthorizationState updateAuthorizationState when updateAuthorizationState.AuthorizationState.GetType() == typeof(TdApi.AuthorizationState.AuthorizationStateWaitEncryptionKey):
-                        client.CheckDatabaseEncryptionKeyAsync(encryptionKey);
-                        break;
-                    case TdApi.Update.UpdateAuthorizationState updateAuthorizationState when updateAuthorizationState.AuthorizationState.GetType() == typeof(TdApi.AuthorizationState.AuthorizationStateWaitPhoneNumber):
-                        authNeeded = true;
-                        resetEvent.Set();
-                        break;
-                    case TdApi.Update.UpdateAuthorizationState updateAuthorizationState when updateAuthorizationState.AuthorizationState.GetType() == typeof(TdApi.AuthorizationState.AuthorizationStateWaitCode):
-                        authNeeded = true;
-                        resetEvent.Set();
                         break;
                     case TdApi.Update.UpdateUser updateUser:
                         resetEvent.Set();
@@ -123,7 +123,7 @@ namespace MTDvsFH
             }
 
             Console.ReadLine();
-            client.CloseAsync();
+            //client.CloseAsync();
         }
 
         public static async IAsyncEnumerable<TdApi.Chat> GetChannels(
@@ -138,9 +138,12 @@ namespace MTDvsFH
             foreach (long chatId in chats.ChatIds)
             {
                 TdApi.Chat chat = await client.ExecuteAsync(new TdApi.GetChat { ChatId = chatId });
-                if (chat.Type is TdApi.ChatType.ChatTypeSupergroup || 
-                    chat.Type is TdApi.ChatType.ChatTypeBasicGroup || 
-                    chat.Type is TdApi.ChatType.ChatTypePrivate)
+                if (
+                    true
+                    //chat.Type is TdApi.ChatType.ChatTypeSupergroup || 
+                    //chat.Type is TdApi.ChatType.ChatTypeBasicGroup || 
+                    //chat.Type is TdApi.ChatType.ChatTypePrivate
+                    )
                 {
                     yield return chat;
                 }
