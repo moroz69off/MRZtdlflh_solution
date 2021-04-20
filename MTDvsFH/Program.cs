@@ -68,52 +68,48 @@ namespace MTDvsFH
 
 
             client.UpdateReceived += async (sender, updateAuthState) => {
-                if (client.GetAuthorizationStateAsync().GetType() == typeof (TdAPI.AuthorizationState.AuthorizationStateWaitCode))
+                switch (updateAuthState)
                 {
-                    Console.WriteLine("type code");
-                    string code = Console.ReadLine();
-                    client.CheckAuthenticationCodeAsync(code);
+                    case TdApi.Update.UpdateAuthorizationState updateAuthorizationState when updateAuthorizationState.AuthorizationState.GetType() == typeof(TdApi.AuthorizationState.AuthorizationStateWaitPhoneNumber):
+                        authNeeded = true;
+                        //resetEvent.Set();
+                        break;
+
+                    case TdApi.Update.UpdateAuthorizationState updateAuthorizationState when updateAuthorizationState.AuthorizationState.GetType() == typeof(TdApi.AuthorizationState.AuthorizationStateWaitCode):
+                        authNeeded = true;
+                        resetEvent.Set();
+                        break;
+
+                    case TdApi.Update.UpdateUser updateUser:
+                        resetEvent.Set();
+                        break;
+
+                    case TdApi.Update.UpdateConnectionState updateConnectionState when updateConnectionState.State.GetType() == typeof(TdApi.ConnectionState.ConnectionStateReady):
+                        break;
+
+                    default:
+                        ; // add a breakpoint here to see other events
+                        break;
                 }
             };
 
-            #region update
-            //client.UpdateReceived += async (sender, update) => {
-            //    Console.WriteLine("\n\n\n\n\n******* U P D A T E   R E C E I V E D *******\n" +
-            //        "\nSTATUS: \t" + client.GetAuthorizationStateAsync().Status +
-            //        "\nASYNC STATE: \t" + client.GetAuthorizationStateAsync().AsyncState +
-            //        "\nRESULT: \t" + client.GetAuthorizationStateAsync().Result +
-            //        "\n∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆\n\n");
-            //        updateAuthState = new TdAPI.Update.UpdateAuthorizationState();
-            //        Console.WriteLine(updateAuthState.AuthorizationState);
-            //    if (client.GetAuthorizationStateAsync() != null)
-            //    {
-            //        Console.WriteLine("\n\t***********************************************\n\t" +
-            //            "CLIENT AUTHORIZATION STATE: \t" + client.GetAuthorizationStateAsync().Result +
-            //            "\n\t***********************************************\n\n\n\n\n");
-            //    }
-            //    authNeeded = (client.GetAuthorizationStateAsync().GetType() == typeof(TdApi.AuthorizationState.AuthorizationStateWaitCode));
-            //    if (authNeeded)
-            //    {
-            //        await client.ExecuteAsync(new TdApi.SetAuthenticationPhoneNumber
-            //        {
-            //            PhoneNumber = phoneNumber
-            //        });
-            //        Console.Write("Insert the login code: ");
-            //        string code = Console.ReadLine();
-            //        client.CheckAuthenticationCodeAsync(code);
-            //    }
-            //};
-            #endregion update
-
             resetEvent.Wait();
-
+            if (authNeeded)
+            {
+                Console.Write("Insert the login code: ");
+                string code = Console.ReadLine();
+                await client.ExecuteAsync(new TdApi.CheckAuthenticationCode
+                {
+                    Code = code
+                });
+            }
             await foreach (TdApi.Chat chat in GetChannels())
             {
                 Console.WriteLine("\n\tCHAT TITLE: " + chat.Title);
             }
 
             Console.ReadLine();
-            //client.CloseAsync();
+            client.CloseAsync();
         }
 
         public static async IAsyncEnumerable<TdApi.Chat> GetChannels(
