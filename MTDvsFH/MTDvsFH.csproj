@@ -10,10 +10,20 @@
     <Authors>moroz69off, core.telegram.org/tdlib</Authors>
     <PackageIcon>ILLO_Hero_SmartRecs_1520_color__1_.png</PackageIcon>
     <Copyright>moroz69off</Copyright>
-    <PackageLicenseExpression>moroz69off lic</PackageLicenseExpression>
+    <PackageLicenseExpression></PackageLicenseExpression>
+    <Platforms>AnyCPU;x86</Platforms>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Prefer32Bit>true</Prefer32Bit>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <Optimize>false</Optimize>
+    <WarningLevel>0</WarningLevel>
+    <OutputPath>bin\Debug\netcoreapp3.1\</OutputPath>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
     <Prefer32Bit>true</Prefer32Bit>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>true</Optimize>

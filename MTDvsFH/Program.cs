@@ -9,6 +9,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using static TdLib.TdApi.AuthorizationState;
 
 namespace MTDvsFH
 {
@@ -31,9 +32,8 @@ namespace MTDvsFH
             client = new TdClient();
 
             TdAPI.SetLogVerbosityLevel level = new TdAPI.SetLogVerbosityLevel();
-            //level.NewVerbosityLevel = 0;
+            level.NewVerbosityLevel = 4;
             var uthorizationState = new TdApi.AuthorizationState();
-            updateAuthState = new TdAPI.Update.UpdateAuthorizationState();
 
             #region debugmode
             // 464756882
@@ -66,36 +66,50 @@ namespace MTDvsFH
 
             var phone = client.SetAuthenticationPhoneNumberAsync(phoneNumber);
 
-            client.UpdateReceived += async (sender, update) => {
-                Console.WriteLine("\n\n\n\n\n***UPDATE RECEIVED***\n" +
-                    "\nSTATUS: \t" + client.GetAuthorizationStateAsync().Status +
-                    "\nASYNC STATE: \t" + client.GetAuthorizationStateAsync().AsyncState +
-                    "\nRESULT: \t" + client.GetAuthorizationStateAsync().Result +
-                    "\n∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆\n\n");
-                if (true)
+
+            client.UpdateReceived += async (sender, updateAuthState) => {
+                if (client.GetAuthorizationStateAsync().GetType() == typeof (TdAPI.AuthorizationState.AuthorizationStateWaitCode))
                 {
-                    Console.WriteLine("\n\t**********\n\t" +
-                        "CLIENT AUTHORIZATION STATE: \t" + client.GetAuthorizationStateAsync().Result +
-                        "\n\t**********\n\n\n\n\n");
+                    Console.WriteLine("type code");
+                    string code = Console.ReadLine();
+                    client.CheckAuthenticationCodeAsync(code);
                 }
             };
 
-            resetEvent.Wait();
+            #region update
+            //client.UpdateReceived += async (sender, update) => {
+            //    Console.WriteLine("\n\n\n\n\n******* U P D A T E   R E C E I V E D *******\n" +
+            //        "\nSTATUS: \t" + client.GetAuthorizationStateAsync().Status +
+            //        "\nASYNC STATE: \t" + client.GetAuthorizationStateAsync().AsyncState +
+            //        "\nRESULT: \t" + client.GetAuthorizationStateAsync().Result +
+            //        "\n∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆∆\n\n");
+            //        updateAuthState = new TdAPI.Update.UpdateAuthorizationState();
+            //        Console.WriteLine(updateAuthState.AuthorizationState);
+            //    if (client.GetAuthorizationStateAsync() != null)
+            //    {
+            //        Console.WriteLine("\n\t***********************************************\n\t" +
+            //            "CLIENT AUTHORIZATION STATE: \t" + client.GetAuthorizationStateAsync().Result +
+            //            "\n\t***********************************************\n\n\n\n\n");
+            //    }
+            //    authNeeded = (client.GetAuthorizationStateAsync().GetType() == typeof(TdApi.AuthorizationState.AuthorizationStateWaitCode));
+            //    if (authNeeded)
+            //    {
+            //        await client.ExecuteAsync(new TdApi.SetAuthenticationPhoneNumber
+            //        {
+            //            PhoneNumber = phoneNumber
+            //        });
+            //        Console.Write("Insert the login code: ");
+            //        string code = Console.ReadLine();
+            //        client.CheckAuthenticationCodeAsync(code);
+            //    }
+            //};
+            #endregion update
 
-            if (authNeeded)
-            {
-                await client.ExecuteAsync(new TdApi.SetAuthenticationPhoneNumber
-                {
-                    PhoneNumber = phoneNumber
-                });
-                Console.Write("Insert the login code: ");
-                string code = Console.ReadLine();
-                client.CheckAuthenticationCodeAsync(code);
-            }
+            resetEvent.Wait();
 
             await foreach (TdApi.Chat chat in GetChannels())
             {
-                Console.WriteLine(chat.Title);
+                Console.WriteLine("\n\tCHAT TITLE: " + chat.Title);
             }
 
             Console.ReadLine();
@@ -105,7 +119,7 @@ namespace MTDvsFH
         public static async IAsyncEnumerable<TdApi.Chat> GetChannels(
             long offsetOrder = long.MaxValue,
             long offsetId = 0,
-            int limit = 1000)
+            int limit = 100)
         {
             var chats = await client.ExecuteAsync(new TdApi.GetChats { 
                 OffsetOrder = offsetOrder,
