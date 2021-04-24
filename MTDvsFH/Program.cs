@@ -68,29 +68,9 @@ namespace MTDvsFH
 
 
             client.UpdateReceived += async (sender, updateAuthState) => {
-                switch (updateAuthState)
-                {
-                    case TdApi.Update.UpdateAuthorizationState updateAuthorizationState when updateAuthorizationState.AuthorizationState.GetType() == typeof(TdApi.AuthorizationState.AuthorizationStateWaitPhoneNumber):
-                        authNeeded = true;
-                        //resetEvent.Set();
-                        break;
-
-                    case TdApi.Update.UpdateAuthorizationState updateAuthorizationState when updateAuthorizationState.AuthorizationState.GetType() == typeof(TdApi.AuthorizationState.AuthorizationStateWaitCode):
-                        authNeeded = true;
-                        resetEvent.Set();
-                        break;
-
-                    case TdApi.Update.UpdateUser updateUser:
-                        resetEvent.Set();
-                        break;
-
-                    case TdApi.Update.UpdateConnectionState updateConnectionState when updateConnectionState.State.GetType() == typeof(TdApi.ConnectionState.ConnectionStateReady):
-                        break;
-
-                    default:
-                        ; // add a breakpoint here to see other events
-                        break;
-                }
+                Console.WriteLine("\n\t\t@@@@@@@@@@@@@@@@@@@@@@@\t" + client.GetCurrentStateAsync() + "");
+                Console.WriteLine("\n\t\t@@@@@@@@@@@@@@@@@@@@@@@\t" + sender + "");
+                Console.WriteLine("\n\t\t@@@@@@@@@@@@@@@@@@@@@@@\t" + updateAuthState + "\n\n");
             };
 
             resetEvent.Wait();
