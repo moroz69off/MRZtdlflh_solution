@@ -25,7 +25,7 @@ namespace TdLib.Samples.GetChats
                 switch (update)
                 {
                     case TdApi.Update.UpdateAuthorizationState updateAuthorizationState when updateAuthorizationState.AuthorizationState.GetType() == typeof(TdApi.AuthorizationState.AuthorizationStateWaitTdlibParameters):
-                        await _client.ExecuteAsync(new TdApi.SetTdlibParameters
+                        var executeParameters = await _client.ExecuteAsync(new TdApi.SetTdlibParameters
                         {
                             Parameters = new TdApi.TdlibParameters
                             {

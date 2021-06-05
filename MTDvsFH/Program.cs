@@ -69,9 +69,9 @@ namespace MTDvsFH
 
             client.UpdateReceived += async (sender, updateAuthState) => {
                 Console.WriteLine("\n\t\t@@@@@@@@@@@@@@@@@@@@@@@\t" + client.GetCurrentStateAsync() + "");
-                Console.WriteLine("\n\t\t@@@@@@@@@@@@@@@@@@@@@@@\t" + sender + "");
-                Console.WriteLine("\n\t\t@@@@@@@@@@@@@@@@@@@@@@@\t" + updateAuthState + "\n\n");
-            };
+                Console.WriteLine("\n\t\t@@@@@@@@@@@@@@@@@@@@@@@-SENDER:\t" + sender + "");
+                Console.WriteLine("\n\t\t@@@@@@@@@@@@@@@@@@@@@@@-UPDATE-AUTH-STATE:\t" + updateAuthState + "\n\n");
+            8};
 
             resetEvent.Wait();
             if (authNeeded)
