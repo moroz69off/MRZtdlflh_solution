@@ -68,21 +68,19 @@ namespace MTDvsFH
 
 
             client.UpdateReceived += async (sender, updateAuthState) => {
-                Console.WriteLine("\n\t\t@@@@@@@@@@@@@@@@@@@@@@@\t" + client.GetCurrentStateAsync() + "");
-                Console.WriteLine("\n\t\t@@@@@@@@@@@@@@@@@@@@@@@-SENDER:\t" + sender + "");
-                Console.WriteLine("\n\t\t@@@@@@@@@@@@@@@@@@@@@@@-UPDATE-AUTH-STATE:\t" + updateAuthState + "\n\n");
-            8};
+                Console.Beep(300, 500);
+            };
 
             resetEvent.Wait();
-            if (authNeeded)
-            {
-                Console.Write("Insert the login code: ");
-                string code = Console.ReadLine();
-                await client.ExecuteAsync(new TdApi.CheckAuthenticationCode
-                {
-                    Code = code
-                });
-            }
+            //if (authNeeded)
+            //{
+            //    Console.Write("\n\t\t\n\t\t\n\t\tInsert the login code: ");
+            //    string code = Console.ReadLine();
+            //    await client.ExecuteAsync(new TdApi.CheckAuthenticationCode
+            //    {
+            //        Code = code
+            //    });
+            //}
             await foreach (TdApi.Chat chat in GetChannels())
             {
                 Console.WriteLine("\n\tCHAT TITLE: " + chat.Title);
